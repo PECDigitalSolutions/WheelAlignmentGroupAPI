@@ -44,12 +44,15 @@ public class WowCharacterControllerTests
     public async Task GetCharacters_ReturnsAllCharacters()
     {
         // Act
-        var result = await _controller.GetCharacters();
+        var result = await _controller.GetCharacters(null, null, null);
 
         // Assert
-        var characters = Assert.IsType<List<WowCharacter>>(result.Value);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var characters = Assert.IsType<List<WowCharacter>>(okResult.Value);
         Assert.Equal(2, characters.Count);
     }
+
+
 
     // ✅ Test: Get a single character (valid ID)
     [Fact]
