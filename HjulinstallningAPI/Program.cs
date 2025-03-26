@@ -10,6 +10,13 @@ using HjulinstallningAPI.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// #################################################################################################
+// ✅ Read configuration settings FROM AZURE #######################################################
+// #################################################################################################
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var dnbSettings = builder.Configuration.GetSection("DnbApi");
+
 // ✅ Register WCF Client
 builder.Services.AddSingleton<VeCloudServiceClient>(_ =>
     new VeCloudServiceClient(VeCloudServiceClient.EndpointConfiguration.VeCloudService)
@@ -52,7 +59,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // ✅ Configure JWT Authentication
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT SecretKey is missing in appsettings.json"));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -74,7 +80,7 @@ builder.Services.AddAuthorization();
 
 // ✅ Use SQL Server Instead of SQLite
 builder.Services.AddDbContext<VehicleDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    options.UseSqlServer(connectionString,
         sqlServerOptionsAction: sqlOptions =>
         {
             sqlOptions.EnableRetryOnFailure(
@@ -111,3 +117,4 @@ app.UseAuthorization();
 app.MapControllers().RequireAuthorization();
 
 app.Run();
+
