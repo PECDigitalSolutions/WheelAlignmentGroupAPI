@@ -1,0 +1,61 @@
+### 🔹 Login Request (Token Stored Automatically) ##########
+POST http://localhost:5222/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+
+
+##########################################
+######## VEHICLES ########################
+##########################################
+
+### 🔹 Get Vehicle Data (From Cache, DB, or VeCloud API)
+GET http://localhost:5222/api/vehicle/DSZ298
+Content-Type: application/json
+
+
+
+
+#######################################
+####### WOW ###########################
+#######################################
+### 🔹 Get All WoW Characters with filter
+GET http://localhost:5222/api/wowcharacter?race=orc&classType=&sortBy=name
+Content-Type: application/json
+
+### 🔹 Get a Specific WoW Character by ID ## change last id for character
+GET http://localhost:5222/api/wowcharacter/1
+Content-Type: application/json
+
+### 🔹 Add a New WoW Character
+POST http://localhost:5222/api/wowcharacter
+Content-Type: application/json
+
+{
+  "name": "philip",
+  "race": "Orc",
+  "class": "Shaman",
+  "spec": "Enhancement",
+  "armorType": "Mail"
+}
+
+### 🔹 Update an Existing WoW Character
+PUT http://localhost:5222/api/wowcharacter/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Jaina Proudmoore",
+  "race": "Human",
+  "class": "Mage",
+  "spec": "Frost",
+  "armorType": "Plate"
+}
+
+### 🔹 Delete a WoW Character
+DELETE http://localhost:5222/api/wowcharacter/5
+Content-Type: application/json
