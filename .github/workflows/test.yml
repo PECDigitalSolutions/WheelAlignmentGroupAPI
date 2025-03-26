@@ -19,8 +19,14 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Show file tree (debug)
+      - name: Show root directory (debug)
         run: dir
+
+      - name: Show HjulinstallningAPI directory (debug)
+        run: dir HjulinstallningAPI
+
+      - name: Show HjulinstallningAPI.Tests directory (debug)
+        run: dir HjulinstallningAPI.Tests
 
       - name: Restore dependencies
         run: dotnet restore HjulinstallningAPI/hjulinstallning.sln
@@ -30,4 +36,3 @@ jobs:
 
       - name: Run unit tests
         run: dotnet test --no-build --verbosity normal HjulinstallningAPI/hjulinstallning.sln
-
