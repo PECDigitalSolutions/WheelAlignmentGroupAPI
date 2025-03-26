@@ -23,10 +23,11 @@ jobs:
         run: dir
 
       - name: Restore dependencies
-        run: dotnet restore hjulinstallning.sln
+        run: dotnet restore HjulinstallningAPI/hjulinstallning.sln
 
       - name: Build solution
-        run: dotnet build --no-restore hjulinstallning.sln
+        run: dotnet build --no-restore HjulinstallningAPI/hjulinstallning.sln
 
       - name: Run unit tests
-        run: dotnet test --no-build --verbosity normal hjulinstallning.sln
+        run: dotnet test --no-build --verbosity normal HjulinstallningAPI/hjulinstallning.sln
+
