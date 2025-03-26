@@ -1,0 +1,29 @@
+name: build-and-test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore hjulinstallning.sln
+
+    - name: Build solution
+      run: dotnet build --no-restore hjulinstallning.sln
+
+    - name: Run unit tests
+      run: dotnet test --no-build --verbosity normal hjulinstallning.sln
